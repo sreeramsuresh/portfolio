@@ -1013,8 +1013,8 @@ const Portfolio = () => {
             <Grid container spacing={4}>
               {projects.map((project, index) => (
                 <Grid item xs={12} md={6} key={index}>
-                  <Card sx={{ height: "100%", cursor: "pointer" }}>
-                    <CardContent sx={{ p: 4 }}>
+                  <Card sx={{ height: 320, cursor: "pointer" }}>
+                    <CardContent sx={{ p: 4, height: "100%", display: "flex", flexDirection: "column" }}>
                       <Stack
                         direction="row"
                         spacing={2}
@@ -1024,7 +1024,7 @@ const Portfolio = () => {
                         <Typography sx={{ fontSize: "2rem" }}>
                           {project.icon}
                         </Typography>
-                        <Box sx={{ flex: 1 }}>
+                        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", height: "100%" }}>
                           <Stack
                             direction="row"
                             justifyContent="space-between"
@@ -1087,14 +1087,15 @@ const Portfolio = () => {
                         </Box>
                       </Stack>
 
-                      <Button
-                        variant="text"
-                        color="primary"
-                        startIcon={<Launch />}
-                        sx={{ mt: 2 }}
-                      >
-                        View Details
-                      </Button>
+                      <Box sx={{ mt: "auto" }}>
+                        <Button
+                          variant="text"
+                          color="primary"
+                          startIcon={<Launch />}
+                        >
+                          View Details
+                        </Button>
+                      </Box>
                     </CardContent>
                   </Card>
                 </Grid>
