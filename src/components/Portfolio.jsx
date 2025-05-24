@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import {
   AppBar,
   Toolbar,
@@ -16,136 +15,216 @@ import {
   Paper,
   LinearProgress,
   Fab,
-  useTheme,
-  createTheme,
   ThemeProvider,
   CssBaseline,
   Stack,
   Divider,
 } from "@mui/material";
+import { styled, createTheme } from "@mui/material/styles";
+
 import {
   Code,
   Computer,
   Phone,
   Psychology,
-  EmojiEvents,
   Email,
-  LocationOn,
   GitHub,
   LinkedIn,
   Twitter,
   KeyboardArrowDown,
   Star,
   TrendingUp,
-  CheckCircle,
   Launch,
   Rocket,
   Business,
   Build,
   Settings,
 } from "@mui/icons-material";
-import { styled, keyframes } from "@mui/material/styles";
 
-// Custom animations
-const float = keyframes`
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-`;
-
-const spinSlow = keyframes`
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-`;
-
-const pulse = keyframes`
-  0%, 100% { opacity: 0.1; }
-  50% { opacity: 0.3; }
-`;
-
-// Custom styled components
-const FloatingElement = styled(Box)(({ theme }) => ({
-  animation: `${float} 3s ease-in-out infinite`,
-}));
-
-const SpinningElement = styled(Box)(({ theme }) => ({
-  animation: `${spinSlow} 20s linear infinite`,
-}));
-
-const PulsingOrb = styled(Box)(({ theme }) => ({
-  position: "absolute",
-  borderRadius: "50%",
-  filter: "blur(60px)",
-  animation: `${pulse} 3s ease-in-out infinite`,
-  pointerEvents: "none",
-}));
-
-const GradientText = styled(Typography)(({ theme }) => ({
-  background: "linear-gradient(45deg, #9c27b0, #e91e63)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
-  backgroundClip: "text",
-}));
-
-// Dark theme with purple accents
+// Black and purple theme
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
     background: {
-      default: "linear-gradient(135deg, #1a237e 0%, #4a148c 50%, #1e293b 100%)",
-      paper: "rgba(255, 255, 255, 0.05)",
+      default: "#000000",
+      paper: "rgba(30, 30, 30, 0.6)",
     },
     primary: {
-      main: "#9c27b0",
+      main: "#9c27b0", // Purple
+      light: "#bb86fc",
+      dark: "#6a0080",
     },
     secondary: {
-      main: "#e91e63",
+      main: "#7c4dff", // Light purple
+      light: "#b47cff",
+      dark: "#3f1dcb",
+    },
+    success: {
+      main: "#00c853", 
     },
     text: {
-      primary: "#ffffff",
-      secondary: "rgba(255, 255, 255, 0.7)",
+      primary: "#e2e2fa", // Soft purple-white
+      secondary: "rgba(187, 134, 252, 0.6)", // Light purple with transparency
     },
   },
-
+  typography: {
+    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    h1: {
+      fontWeight: 700,
+      letterSpacing: "-0.025em",
+    },
+    h2: {
+      fontWeight: 700,
+      letterSpacing: "-0.025em",
+    },
+    h3: {
+      fontWeight: 600,
+      letterSpacing: "-0.02em",
+    },
+    h4: {
+      fontWeight: 600,
+    },
+    h5: {
+      fontWeight: 500,
+    },
+    h6: {
+      fontWeight: 500,
+    },
+    body1: {
+      letterSpacing: "0.01em",
+      lineHeight: 1.7,
+    },
+    body2: {
+      letterSpacing: "0.01em",
+      lineHeight: 1.5,
+    },
+    button: {
+      textTransform: "none",
+      fontWeight: 500,
+      letterSpacing: "0.02em",
+    }
+  },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          background:
-            "linear-gradient(135deg, #1a237e 0%, #4a148c 50%, #1e293b 100%)",
+          background: "linear-gradient(135deg, #000000 0%, #120024 50%, #000000 100%)",
           minHeight: "100vh",
           backgroundAttachment: "fixed",
+          margin: 0,
+          padding: 0,
+          width: "100%",
+          display: "block",
+          overflowX: "hidden",
+          overflowY: "visible"
         },
+        "#root": {
+          width: "100%",
+          height: "100%",
+        }
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          background: "rgba(255, 255, 255, 0.05)",
+          background: "rgba(15, 15, 25, 0.7)",
           backdropFilter: "blur(10px)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
+          border: "1px solid rgba(156, 39, 176, 0.1)",
+          transition: "all 0.3s ease",
+          borderRadius: "12px",
           "&:hover": {
-            border: "1px solid rgba(156, 39, 176, 0.3)",
+            border: "1px solid rgba(156, 39, 176, 0.5)",
             transform: "translateY(-4px)",
-            transition: "all 0.3s ease",
+            boxShadow: "0px 8px 30px rgba(124, 77, 255, 0.3)",
           },
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: "none",
+        }
+      }
+    },
+    MuiChip: {
+      styleOverrides: {
+        outlinedPrimary: {
+          borderColor: "rgba(156, 39, 176, 0.3)",
+        },
+        outlinedSecondary: {
+          borderColor: "rgba(124, 77, 255, 0.3)",
+        }
+      }
+    },
     MuiAppBar: {
       styleOverrides: {
         root: {
-          background: "rgba(0, 0, 0, 0.2)",
+          background: "rgba(0, 0, 0, 0.7)",
           backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+          borderBottom: "1px solid rgba(156, 39, 176, 0.2)",
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        containedPrimary: {
+          background: "linear-gradient(45deg, #9c27b0, #7c4dff)",
+          boxShadow: "0px 4px 10px rgba(156, 39, 176, 0.3)",
+          "&:hover": {
+            background: "linear-gradient(45deg, #6a0080, #3f1dcb)",
+            boxShadow: "0px 6px 14px rgba(156, 39, 176, 0.5)",
+          },
+        },
+        outlinedPrimary: {
+          borderColor: "rgba(156, 39, 176, 0.5)",
+          "&:hover": {
+            backgroundColor: "rgba(156, 39, 176, 0.1)",
+          },
         },
       },
     },
   },
 });
 
+// Styled components with direct animation definitions
+const FloatingElement = styled(Box)({
+  animation: "float 3s ease-in-out infinite",
+  "@keyframes float": {
+    "0%, 100%": { transform: "translateY(0px)" },
+    "50%": { transform: "translateY(-20px)" },
+  },
+});
+
+const SpinningElement = styled(Box)({
+  animation: "spinSlow 20s linear infinite",
+  "@keyframes spinSlow": {
+    from: { transform: "rotate(0deg)" },
+    to: { transform: "rotate(360deg)" },
+  },
+});
+
+const PulsingOrb = styled(Box)({
+  position: "absolute",
+  borderRadius: "50%",
+  filter: "blur(100px)",
+  animation: "pulse 4s ease-in-out infinite",
+  pointerEvents: "none",
+  "@keyframes pulse": {
+    "0%, 100%": { opacity: 0.15 },
+    "50%": { opacity: 0.35 },
+  },
+});
+
+const GradientText = styled(Typography)({
+  background: "linear-gradient(45deg, #bb86fc, #7c4dff)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  backgroundClip: "text",
+});
+
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState("home");
-  const theme = useTheme();
 
   const projects = [
     {
@@ -276,7 +355,7 @@ const Portfolio = () => {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Box
-        sx={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}
+        sx={{ position: "relative", minHeight: "100vh", width: "100%", overflowX: "hidden", overflowY: "auto" }}
       >
         {/* Animated Background Elements */}
         <PulsingOrb
@@ -286,6 +365,7 @@ const Portfolio = () => {
             width: 300,
             height: 300,
             backgroundColor: "primary.main",
+            opacity: 0.4,
             animationDelay: "0s",
           }}
         />
@@ -296,6 +376,7 @@ const Portfolio = () => {
             width: 400,
             height: 400,
             backgroundColor: "secondary.main",
+            opacity: 0.5,
             animationDelay: "1s",
           }}
         />
@@ -303,11 +384,23 @@ const Portfolio = () => {
           sx={{
             top: "50%",
             left: "50%",
-            width: 250,
-            height: 250,
-            backgroundColor: "#673ab7",
+            width: 300,
+            height: 300,
+            backgroundColor: "#3f1dcb",
+            opacity: 0.3,
             animationDelay: "0.5s",
             transform: "translate(-50%, -50%)",
+          }}
+        />
+        <PulsingOrb
+          sx={{
+            top: "30%",
+            right: "15%",
+            width: 200,
+            height: 200,
+            backgroundColor: "#6a0080",
+            opacity: 0.2,
+            animationDelay: "1.5s",
           }}
         />
 
@@ -363,6 +456,7 @@ const Portfolio = () => {
             display: "flex",
             alignItems: "center",
             pt: 8,
+            width: "100%",
           }}
         >
           <Container maxWidth="lg">
@@ -453,7 +547,7 @@ const Portfolio = () => {
                     variant="contained"
                     size="large"
                     sx={{
-                      background: "linear-gradient(45deg, #9c27b0, #e91e63)",
+                      background: "linear-gradient(45deg, #9c27b0, #7c4dff)",
                       px: 4,
                       py: 1.5,
                       borderRadius: 25,
@@ -769,7 +863,7 @@ const Portfolio = () => {
           </Container>
         </Box>
 
-        {/* Featured Projects */}
+        {/* Projects Grid Section */}
         <Box id="projects" sx={{ py: 10, position: "relative" }}>
           <Container maxWidth="lg">
             {/* Orbital Animation */}
@@ -785,7 +879,7 @@ const Portfolio = () => {
                     width: 80,
                     height: 80,
                     borderRadius: "50%",
-                    background: "linear-gradient(135deg, #9c27b0, #e91e63)",
+                    background: "linear-gradient(135deg, #9c27b0, #7c4dff)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -874,22 +968,152 @@ const Portfolio = () => {
               </Box>
             </Box>
 
-            {/* Featured Project */}
+            <Typography
+              variant="h3"
+              align="center"
+              sx={{ mb: 8, fontWeight: "bold" }}
+            >
+              Featured Projects
+            </Typography>
+
+            <Grid container spacing={4}>
+              {projects.map((project, index) => (
+                <Grid item xs={12} md={6} key={index}>
+                  <Card sx={{ height: "100%", cursor: "pointer" }}>
+                    <CardContent sx={{ p: 4 }}>
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        alignItems="flex-start"
+                        sx={{ mb: 3 }}
+                      >
+                        <Typography sx={{ fontSize: "2rem" }}>
+                          {project.icon}
+                        </Typography>
+                        <Box sx={{ flex: 1 }}>
+                          <Stack
+                            direction="row"
+                            justifyContent="space-between"
+                            alignItems="flex-start"
+                            sx={{ mb: 2 }}
+                          >
+                            <Typography
+                              variant="h6"
+                              sx={{ fontWeight: "bold" }}
+                            >
+                              {project.title}
+                            </Typography>
+                            <Chip
+                              label={project.status}
+                              size="small"
+                              color={
+                                project.status === "Production"
+                                  ? "success"
+                                  : "warning"
+                              }
+                              variant="outlined"
+                            />
+                          </Stack>
+                          <Typography
+                            variant="body2"
+                            sx={{ color: "text.secondary", mb: 2 }}
+                          >
+                            {project.description}
+                          </Typography>
+                          <Stack
+                            direction="row"
+                            spacing={1}
+                            sx={{ mb: 2, flexWrap: "wrap" }}
+                          >
+                            {project.tech.map((tech, techIndex) => (
+                              <Chip
+                                key={techIndex}
+                                label={tech}
+                                size="small"
+                                variant="outlined"
+                                sx={{ mb: 1 }}
+                              />
+                            ))}
+                          </Stack>
+                          <Stack
+                            direction="row"
+                            alignItems="center"
+                            spacing={1}
+                          >
+                            <TrendingUp
+                              sx={{ color: "success.main", fontSize: 16 }}
+                            />
+                            <Typography
+                              variant="body2"
+                              sx={{ color: "success.main", fontWeight: 600 }}
+                            >
+                              {project.impact}
+                            </Typography>
+                          </Stack>
+                        </Box>
+                      </Stack>
+
+                      <Button
+                        variant="text"
+                        color="primary"
+                        startIcon={<Launch />}
+                        sx={{ mt: 2 }}
+                      >
+                        View Details
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+
+            <Box sx={{ textAlign: "center", mt: 6 }}>
+              <Typography
+                variant="body1"
+                sx={{ color: "text.secondary", mb: 2 }}
+              >
+                <Box
+                  component="span"
+                  sx={{ color: "primary.main", fontWeight: "bold" }}
+                >
+                  12
+                </Box>{" "}
+                Production Projects |{" "}
+                <Box
+                  component="span"
+                  sx={{ color: "secondary.main", fontWeight: "bold" }}
+                >
+                  7
+                </Box>{" "}
+                POCs Delivered
+              </Typography>
+              <Button
+                variant="contained"
+                sx={{
+                  background: "linear-gradient(45deg, #9c27b0, #7c4dff)",
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: 25,
+                }}
+              >
+                View All Projects
+              </Button>
+            </Box>
+          </Container>
+        </Box>
+        
+        {/* Featured Project */}
+        <Box sx={{ py: 10, position: "relative", backgroundColor: "rgba(20, 10, 40, 0.2)" }}>
+          <Container maxWidth="lg">
             <Grid container spacing={6} alignItems="center">
               <Grid item xs={12} lg={6}>
-                <Typography
-                  variant="subtitle1"
-                  sx={{ color: "primary.main", mb: 2 }}
-                >
+                <Typography variant="subtitle1" sx={{ color: "primary.main", mb: 2 }}>
                   Featured Project
                 </Typography>
                 <Typography variant="h3" sx={{ fontWeight: "bold", mb: 3 }}>
                   AI-Enhanced Development Platform
                 </Typography>
-                <Typography
-                  variant="h6"
-                  sx={{ color: "text.primary", mb: 4, lineHeight: 1.7 }}
-                >
+                <Typography variant="h6" sx={{ color: "text.primary", mb: 4, lineHeight: 1.7 }}>
                   A comprehensive development platform that leverages Claude AI
                   and Cursor AI to accelerate full-stack development. Features
                   rapid prototyping capabilities, automated code generation, and
@@ -1050,6 +1274,64 @@ const Portfolio = () => {
           </Container>
         </Box>
 
+        {/* Skills Progress Section */}
+        <Box sx={{ py: 10, backgroundColor: "rgba(10, 5, 20, 0.3)" }}>
+          <Container maxWidth="md">
+            <Typography
+              variant="h4"
+              align="center"
+              sx={{ mb: 6, fontWeight: "bold" }}
+            >
+              Technical Skills
+            </Typography>
+
+            <Grid container spacing={4}>
+              {skills.map((skill, index) => (
+                <Grid item xs={12} sm={6} key={index}>
+                  <Card sx={{ p: 3 }}>
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      spacing={2}
+                      sx={{ mb: 2 }}
+                    >
+                      <Typography sx={{ fontSize: "1.5rem" }}>
+                        {skill.icon}
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        sx={{ fontWeight: "bold", flex: 1 }}
+                      >
+                        {skill.name}
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        sx={{ color: "primary.main", fontWeight: "bold" }}
+                      >
+                        {skill.level}%
+                      </Typography>
+                    </Stack>
+                    <LinearProgress
+                      variant="determinate"
+                      value={skill.level}
+                      sx={{
+                        height: 8,
+                        borderRadius: 4,
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        "& .MuiLinearProgress-bar": {
+                          background:
+                            "linear-gradient(45deg, #9c27b0, #7c4dff)",
+                          borderRadius: 4,
+                        },
+                      }}
+                    />
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </Box>
+
         {/* Contact Section */}
         <Box id="contact" sx={{ py: 10, position: "relative" }}>
           <Container maxWidth="md">
@@ -1131,201 +1413,6 @@ const Portfolio = () => {
           </Container>
         </Box>
 
-        {/* Projects Grid Section */}
-        <Box id="about" sx={{ py: 10, position: "relative" }}>
-          <Container maxWidth="lg">
-            <Typography
-              variant="h3"
-              align="center"
-              sx={{ mb: 8, fontWeight: "bold" }}
-            >
-              Featured Projects
-            </Typography>
-
-            <Grid container spacing={4}>
-              {projects.map((project, index) => (
-                <Grid item xs={12} md={6} key={index}>
-                  <Card sx={{ height: "100%", cursor: "pointer" }}>
-                    <CardContent sx={{ p: 4 }}>
-                      <Stack
-                        direction="row"
-                        spacing={2}
-                        alignItems="flex-start"
-                        sx={{ mb: 3 }}
-                      >
-                        <Typography sx={{ fontSize: "2rem" }}>
-                          {project.icon}
-                        </Typography>
-                        <Box sx={{ flex: 1 }}>
-                          <Stack
-                            direction="row"
-                            justifyContent="space-between"
-                            alignItems="flex-start"
-                            sx={{ mb: 2 }}
-                          >
-                            <Typography
-                              variant="h6"
-                              sx={{ fontWeight: "bold" }}
-                            >
-                              {project.title}
-                            </Typography>
-                            <Chip
-                              label={project.status}
-                              size="small"
-                              color={
-                                project.status === "Production"
-                                  ? "success"
-                                  : "warning"
-                              }
-                              variant="outlined"
-                            />
-                          </Stack>
-                          <Typography
-                            variant="body2"
-                            sx={{ color: "text.secondary", mb: 2 }}
-                          >
-                            {project.description}
-                          </Typography>
-                          <Stack
-                            direction="row"
-                            spacing={1}
-                            sx={{ mb: 2, flexWrap: "wrap" }}
-                          >
-                            {project.tech.map((tech, techIndex) => (
-                              <Chip
-                                key={techIndex}
-                                label={tech}
-                                size="small"
-                                variant="outlined"
-                                sx={{ mb: 1 }}
-                              />
-                            ))}
-                          </Stack>
-                          <Stack
-                            direction="row"
-                            alignItems="center"
-                            spacing={1}
-                          >
-                            <TrendingUp
-                              sx={{ color: "success.main", fontSize: 16 }}
-                            />
-                            <Typography
-                              variant="body2"
-                              sx={{ color: "success.main", fontWeight: 600 }}
-                            >
-                              {project.impact}
-                            </Typography>
-                          </Stack>
-                        </Box>
-                      </Stack>
-
-                      <Button
-                        variant="text"
-                        color="primary"
-                        startIcon={<Launch />}
-                        sx={{ mt: 2 }}
-                      >
-                        View Details
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-
-            <Box sx={{ textAlign: "center", mt: 6 }}>
-              <Typography
-                variant="body1"
-                sx={{ color: "text.secondary", mb: 2 }}
-              >
-                <Box
-                  component="span"
-                  sx={{ color: "primary.main", fontWeight: "bold" }}
-                >
-                  12
-                </Box>{" "}
-                Production Projects |{" "}
-                <Box
-                  component="span"
-                  sx={{ color: "secondary.main", fontWeight: "bold" }}
-                >
-                  7
-                </Box>{" "}
-                POCs Delivered
-              </Typography>
-              <Button
-                variant="contained"
-                sx={{
-                  background: "linear-gradient(45deg, #9c27b0, #e91e63)",
-                  px: 4,
-                  py: 1.5,
-                  borderRadius: 25,
-                }}
-              >
-                View All Projects
-              </Button>
-            </Box>
-          </Container>
-        </Box>
-
-        {/* Skills Progress Section */}
-        <Box sx={{ py: 10, backgroundColor: "rgba(0, 0, 0, 0.2)" }}>
-          <Container maxWidth="md">
-            <Typography
-              variant="h4"
-              align="center"
-              sx={{ mb: 6, fontWeight: "bold" }}
-            >
-              Technical Skills
-            </Typography>
-
-            <Grid container spacing={4}>
-              {skills.map((skill, index) => (
-                <Grid item xs={12} sm={6} key={index}>
-                  <Card sx={{ p: 3 }}>
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      spacing={2}
-                      sx={{ mb: 2 }}
-                    >
-                      <Typography sx={{ fontSize: "1.5rem" }}>
-                        {skill.icon}
-                      </Typography>
-                      <Typography
-                        variant="h6"
-                        sx={{ fontWeight: "bold", flex: 1 }}
-                      >
-                        {skill.name}
-                      </Typography>
-                      <Typography
-                        variant="h6"
-                        sx={{ color: "primary.main", fontWeight: "bold" }}
-                      >
-                        {skill.level}%
-                      </Typography>
-                    </Stack>
-                    <LinearProgress
-                      variant="determinate"
-                      value={skill.level}
-                      sx={{
-                        height: 8,
-                        borderRadius: 4,
-                        backgroundColor: "rgba(255, 255, 255, 0.1)",
-                        "& .MuiLinearProgress-bar": {
-                          background:
-                            "linear-gradient(45deg, #9c27b0, #e91e63)",
-                          borderRadius: 4,
-                        },
-                      }}
-                    />
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          </Container>
-        </Box>
-
         {/* Footer */}
         <Box sx={{ py: 4, borderTop: "1px solid rgba(255, 255, 255, 0.1)" }}>
           <Container maxWidth="lg">
@@ -1368,9 +1455,9 @@ const Portfolio = () => {
             component="a"
             href="mailto:sreeramsuresh@gmail.com"
             sx={{
-              background: "linear-gradient(45deg, #e91e63, #ad1457)",
+              background: "linear-gradient(45deg, #7c4dff, #3f1dcb)",
               "&:hover": {
-                background: "linear-gradient(45deg, #c2185b, #880e4f)",
+                background: "linear-gradient(45deg, #3f1dcb, #311b92)",
               },
             }}
           >
