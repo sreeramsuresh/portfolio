@@ -60,7 +60,7 @@ const darkTheme = createTheme({
       dark: "#3f1dcb",
     },
     success: {
-      main: "#00c853", 
+      main: "#00c853",
     },
     text: {
       primary: "#e2e2fa", // Soft purple-white
@@ -102,13 +102,14 @@ const darkTheme = createTheme({
       textTransform: "none",
       fontWeight: 500,
       letterSpacing: "0.02em",
-    }
+    },
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          background: "linear-gradient(135deg, #000000 0%, #120024 50%, #000000 100%)",
+          background:
+            "linear-gradient(135deg, #000000 0%, #120024 50%, #000000 100%)",
           minHeight: "100vh",
           backgroundAttachment: "fixed",
           margin: 0,
@@ -116,12 +117,12 @@ const darkTheme = createTheme({
           width: "100%",
           display: "block",
           overflowX: "hidden",
-          overflowY: "visible"
+          overflowY: "visible",
         },
         "#root": {
           width: "100%",
           height: "100%",
-        }
+        },
       },
     },
     MuiCard: {
@@ -144,8 +145,8 @@ const darkTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundImage: "none",
-        }
-      }
+        },
+      },
     },
     MuiChip: {
       styleOverrides: {
@@ -154,8 +155,8 @@ const darkTheme = createTheme({
         },
         outlinedSecondary: {
           borderColor: "rgba(124, 77, 255, 0.3)",
-        }
-      }
+        },
+      },
     },
     MuiAppBar: {
       styleOverrides: {
@@ -355,7 +356,13 @@ const Portfolio = () => {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Box
-        sx={{ position: "relative", minHeight: "100vh", width: "100%", overflowX: "hidden", overflowY: "auto" }}
+        sx={{
+          position: "relative",
+          minHeight: "100vh",
+          width: "100%",
+          overflowX: "hidden",
+          overflowY: "auto",
+        }}
       >
         {/* Animated Background Elements */}
         <PulsingOrb
@@ -736,7 +743,34 @@ const Portfolio = () => {
             <Grid container spacing={4}>
               {experiences.map((exp, index) => (
                 <Grid item xs={12} md={6} key={index}>
-                  <Card sx={{ height: "100%" }}>
+                  <Card
+                    sx={{
+                      height: "100%",
+                      width: "510px",
+                      "@media all and (max-width: 767px)": {
+                        width: "100%",
+                      },
+                      "@media all and (min-width: 768px) and (max-width: 899px)":
+                        {
+                          width: "350px",
+                        },
+                      "@media all and (min-width: 900px) and (max-width: 1279px)":
+                        {
+                          width: "420px",
+                        },
+                      "@media all and (min-width: 1280px) and (max-width: 1349px)":
+                        {
+                          width: "480px",
+                        },
+                      "@media all and (min-width: 1350px) and (max-width: 1650px)":
+                        {
+                          width: "510px",
+                        },
+                      "@media all and (min-width: 1651px)": {
+                        width: "550px",
+                      },
+                    }}
+                  >
                     <CardContent sx={{ p: 4 }}>
                       <Stack
                         direction="row"
@@ -1101,19 +1135,31 @@ const Portfolio = () => {
             </Box>
           </Container>
         </Box>
-        
+
         {/* Featured Project */}
-        <Box sx={{ py: 10, position: "relative", backgroundColor: "rgba(20, 10, 40, 0.2)" }}>
+        <Box
+          sx={{
+            py: 10,
+            position: "relative",
+            backgroundColor: "rgba(20, 10, 40, 0.2)",
+          }}
+        >
           <Container maxWidth="lg">
             <Grid container spacing={6} alignItems="center">
               <Grid item xs={12} lg={6}>
-                <Typography variant="subtitle1" sx={{ color: "primary.main", mb: 2 }}>
+                <Typography
+                  variant="subtitle1"
+                  sx={{ color: "primary.main", mb: 2 }}
+                >
                   Featured Project
                 </Typography>
                 <Typography variant="h3" sx={{ fontWeight: "bold", mb: 3 }}>
                   AI-Enhanced Development Platform
                 </Typography>
-                <Typography variant="h6" sx={{ color: "text.primary", mb: 4, lineHeight: 1.7 }}>
+                <Typography
+                  variant="h6"
+                  sx={{ color: "text.primary", mb: 4, lineHeight: 1.7 }}
+                >
                   A comprehensive development platform that leverages Claude AI
                   and Cursor AI to accelerate full-stack development. Features
                   rapid prototyping capabilities, automated code generation, and
