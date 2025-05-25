@@ -714,15 +714,47 @@ const Portfolio = () => {
               </Grid>
             </Grid>
 
+            {/* Scroll Down Indicator */}
             <Box
               sx={{
                 position: "absolute",
-                bottom: 32,
+                // bottom: 32,
                 left: "50%",
                 transform: "translateX(-50%)",
+                textAlign: "center",
               }}
             >
-              <IconButton sx={{ color: "text.secondary" }}>
+              <Box sx={{ mb: 2 }}>
+                <Divider
+                  sx={{
+                    width: "90%",
+                    mx: "auto",
+                    borderColor: "rgba(255, 255, 255, 0.3)",
+                  }}
+                />
+              </Box>
+              <IconButton
+                sx={{
+                  color: "text.secondary",
+                  animation: "bounce 2s infinite",
+                  "@keyframes bounce": {
+                    "0%, 20%, 50%, 80%, 100%": {
+                      transform: "translateY(0)",
+                    },
+                    "40%": {
+                      transform: "translateY(-10px)",
+                    },
+                    "60%": {
+                      transform: "translateY(-5px)",
+                    },
+                  },
+                }}
+                onClick={() =>
+                  document
+                    .getElementById("experience")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
                 <KeyboardArrowDown />
               </IconButton>
             </Box>
@@ -852,7 +884,7 @@ const Portfolio = () => {
             </Grid>
 
             {/* Skills Section */}
-            <Box sx={{ mt: 10, textAlign: "center" }}>
+            {/* <Box sx={{ mt: 10, textAlign: "center" }}>
               <Typography
                 variant="h6"
                 sx={{ mb: 4, maxWidth: 600, mx: "auto" }}
@@ -893,7 +925,7 @@ const Portfolio = () => {
                   </Paper>
                 ))}
               </Stack>
-            </Box>
+            </Box> */}
           </Container>
         </Box>
 
@@ -1013,8 +1045,44 @@ const Portfolio = () => {
             <Grid container spacing={4}>
               {projects.map((project, index) => (
                 <Grid item xs={12} md={6} key={index}>
-                  <Card sx={{ height: 320, cursor: "pointer" }}>
-                    <CardContent sx={{ p: 4, height: "100%", display: "flex", flexDirection: "column" }}>
+                  <Card
+                    sx={{
+                      height: 320,
+                      cursor: "pointer",
+                      height: "100%",
+                      width: "510px",
+                      "@media all and (max-width: 767px)": {
+                        width: "100%",
+                      },
+                      "@media all and (min-width: 768px) and (max-width: 899px)":
+                        {
+                          width: "350px",
+                        },
+                      "@media all and (min-width: 900px) and (max-width: 1279px)":
+                        {
+                          width: "420px",
+                        },
+                      "@media all and (min-width: 1280px) and (max-width: 1349px)":
+                        {
+                          width: "480px",
+                        },
+                      "@media all and (min-width: 1350px) and (max-width: 1650px)":
+                        {
+                          width: "510px",
+                        },
+                      "@media all and (min-width: 1651px)": {
+                        width: "550px",
+                      },
+                    }}
+                  >
+                    <CardContent
+                      sx={{
+                        p: 4,
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
                       <Stack
                         direction="row"
                         spacing={2}
@@ -1024,7 +1092,14 @@ const Portfolio = () => {
                         <Typography sx={{ fontSize: "2rem" }}>
                           {project.icon}
                         </Typography>
-                        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", height: "100%" }}>
+                        <Box
+                          sx={{
+                            flex: 1,
+                            display: "flex",
+                            flexDirection: "column",
+                            height: "100%",
+                          }}
+                        >
                           <Stack
                             direction="row"
                             justifyContent="space-between"
@@ -1335,7 +1410,36 @@ const Portfolio = () => {
             <Grid container spacing={4}>
               {skills.map((skill, index) => (
                 <Grid item xs={12} sm={6} key={index}>
-                  <Card sx={{ p: 3 }}>
+                  <Card
+                    sx={{
+                      p: 3,
+
+                      height: "100%",
+                      width: "262px", // (510px → 262px)
+                      "@media all and (max-width: 767px)": {
+                        width: "100%", // Stays full-width on mobile
+                      },
+                      "@media all and (min-width: 768px) and (max-width: 899px)":
+                        {
+                          width: "180px", // (350px → ~180px)
+                        },
+                      "@media all and (min-width: 900px) and (max-width: 1279px)":
+                        {
+                          width: "216px", // (420px → ~216px)
+                        },
+                      "@media all and (min-width: 1280px) and (max-width: 1349px)":
+                        {
+                          width: "246px", // (480px → ~246px)
+                        },
+                      "@media all and (min-width: 1350px) and (max-width: 1650px)":
+                        {
+                          width: "252px", // (510px → 262px)
+                        },
+                      "@media all and (min-width: 1651px)": {
+                        width: "262px", // (550px → ~282px)
+                      },
+                    }}
+                  >
                     <Stack
                       direction="row"
                       alignItems="center"
