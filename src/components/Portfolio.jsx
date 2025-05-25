@@ -1047,7 +1047,6 @@ const Portfolio = () => {
                 <Grid item xs={12} md={6} key={index}>
                   <Card
                     sx={{
-                      height: 320,
                       cursor: "pointer",
                       height: "100%",
                       width: "510px",
